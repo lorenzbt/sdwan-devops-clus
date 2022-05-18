@@ -1,0 +1,49 @@
+- name: Check the status of simulation {{ session }}
+  uri:
+    url: "http://{{ virl_host }}:19399/simengine/rest/status/{{ session }}"
+    user: "{{ virl_username }}"
+    password: "{{ virl_password }}"
+    method: GET
+  register: uri_results
+  when: session != ""
+
+- name: Generate New Session ID
+  set_fact:
+    session: "{{ virl_tag }}_{{ topo_name }}_{{ topo_id }}"
+    build: yes
+  when: session == ""
+
+- block:
+  - name: Generate the Topology
+    set_fact:
+      topo_data: "{{ lookup('template', 'virl1_topology.j2') }}"
+
+  - name: Write debug topology file
+    copy:
+      content: "{{ topo_data }}"
+      dest: topo.virl
+
+  - name: Create simulation environment directory
+    file:
+      path: "{{ virl_sim_file | dirname }}"
+      state: directory
+
+  - name: Create simulation ID file
+    copy:
+      dest: "{{ virl_sim_file }}"
+      content: "{{ session }}"
+
+  - name: Launch the simulation {{ session }}
+    uri:
+      url: "http://{{ virl_host }}:19399/simengine/rest/launch?session={{ session }}"
+      user: "{{ virl_username }}"
+      password: "{{ virl_password }}"
+      method: POST
+      headers:
+        Content-Type: "text/xml;charset=UTF-8"
+      body: "{{ topo_data }}"
+    register: uri_results
+    until: uri_results['status']|default(0) < 300
+    retries: 60
+    delay: 10
+  when: (build | default('false') | bool ) or (uri_results.json.state != 'ACTIVE')

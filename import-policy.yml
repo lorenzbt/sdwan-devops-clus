@@ -1,0 +1,44 @@
+- name: Import vManage Policy Lists
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - ansible-viptela
+  vars:
+    vmanage_host: "{{ groups.vmanage_hosts | first }}"
+    vmanage_ip: "{{ hostvars[vmanage_host].ansible_host }}"
+  tags:
+    - policy
+  tasks:
+    - name: Import policy lists
+      tags:
+        - policy_lists
+      vmanage_policy_list:
+        user: "{{ ansible_user }}"
+        host: "{{ vmanage_ip }}"
+        password: "{{ ansible_password }}"
+        state: present
+        aggregate: "{{ vmanage_policy_lists }}"
+      when: vmanage_policy_lists is defined
+
+    - name: Import policy definitions
+      tags:
+        - policy_definitions
+      vmanage_policy_definition:
+        user: "{{ ansible_user }}"
+        host: "{{ vmanage_ip }}"
+        password: "{{ ansible_password }}"
+        state: present
+        aggregate: "{{ vmanage_policy_definitions }}"
+      when: vmanage_policy_definitions is defined
+
+    - name: Import central policies
+      tags:
+        - central_policy
+      vmanage_central_policy:
+        user: "{{ ansible_user }}"
+        host: "{{ vmanage_ip }}"
+        password: "{{ ansible_password }}"
+        state: present
+        aggregate: "{{ vmanage_central_policies }"
+      when: vmanage_central_policies is defined

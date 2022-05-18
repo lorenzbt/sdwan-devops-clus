@@ -1,0 +1,61 @@
+---
+FeatureTemplates:
+  feature-interface:
+    - templateName: 'CLUS_Loopback0'
+      templateDescription: 'Interface Template'
+      name:
+        globalValue : 'loopback0'
+      shutdown:
+        globalValue: 'false'
+      address:
+        variableName: 'ip_addr_lbk'
+      state: 'present'
+      deviceType:
+        - vEdge
+    - templateName: 'CLUS_VPN0_MPLS'
+      templateDescription: 'Interface Template'
+      name:
+        variableName : 'int_name_mpls'
+      description:
+        variableName: 'int_description_mpls'
+      address:
+        variableName: 'ip_addr_mpls'
+      shutdown:
+        variableName: 'int_shutdown_mpls'
+      colorValue:
+        variableName: 'color_mpls'
+      tunnelEncap:
+        globalValue: 'ipsec'
+      state: 'present'
+      deviceType:
+        - vEdge
+    - templateName: 'CLUS_VPN0_INTERNET'
+      templateDescription: 'Interface Template'
+      name:
+        variableName : 'int_name_internet'
+      description:
+        variableName: 'int_description_internet'
+      address:
+        variableName: 'ip_addr_internet'
+      shutdown:
+        variableName: 'int_shutdown_internet'
+      colorValue:
+        variableName: 'color_internet'
+      tunnelEncap:
+        globalValue: 'ipsec'
+      state: 'present'
+      deviceType:
+        - vEdge
+    - templateName: 'CLUS_VPN512_MGT'
+      templateDescription: 'Interface Template'
+      name:
+        variableName: 'int_name_mgt'
+      description:
+        globalValue: 'Management Interface'
+      address:
+        variableName: 'ip_addr_mgt'
+      shutdown:
+        globalValue: 'false'
+      state: 'present'
+      deviceType:
+        - vEdge

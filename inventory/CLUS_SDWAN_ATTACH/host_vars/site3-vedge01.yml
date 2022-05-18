@@ -1,0 +1,23 @@
+templateName: CLUS_temp
+variables:
+  site_id: 1003
+  system_ip: 10.10.1.17
+  host_name: site3-vedge01
+  ip_addr_lbk: 172.16.0.1/32
+  static_route_vpn0: 0.0.0.0/0
+  next_hop_static_mpls: 10.10.23.17
+  next_hop_static_internet: 10.10.23.49
+  static_route_vpn512: 0.0.0.0/0
+  next_hop_static_mgt: 10.10.20.254
+  int_name_mpls: ge0/0
+  int_description_mpls: transport MPLS
+  ip_addr_mpls: 10.10.23.18/30
+  int_shutdown_mpls: false
+  color_mpls: mpls
+  int_name_internet: ge0/2
+  int_description_internet: transport Internet
+  ip_addr_internet: 10.10.23.50/30
+  int_shutdown_internet: false
+  color_internet: biz-internet
+  int_name_mgt: eth0
+  ip_addr_mgt: 10.10.20.178/24

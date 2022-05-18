@@ -1,0 +1,25 @@
+- name: Attach Templates
+  hosts: "{{ passed | default('all') }}"  
+  connection: local
+  gather_facts: no
+  roles:
+    - ansible-viptela
+  vars:
+    vmanage_host: "{{ groups.vmanage_hosts | first }}"
+    vmanage_ip: "{{ hostvars[vmanage_host].ansible_host | default(hostvars[vmanage_host].sdwan_transport_ip) }}"
+  tasks:
+    - name: Attach template to device
+      vmanage_device_attachment:
+        user: "{{ vmanage_user }}"
+        host: "{{ vmanage_ip }}"
+        password: "{{ vmanage_pass }}"
+        device: "{{ inventory_hostname }}"
+        template: "{{ sdwan_template.name }}"
+        variables: "{{ sdwan_template.variables }}"
+        wait: yes
+        state: "present"
+      async: 90
+      poll: 10
+      register: attachment_results
+      tags:
+        - attach

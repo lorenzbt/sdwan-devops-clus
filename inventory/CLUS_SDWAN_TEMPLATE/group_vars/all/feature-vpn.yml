@@ -1,0 +1,50 @@
+---
+FeatureTemplates:
+  feature-vpn:
+    - templateName: 'CLUS_VPN0'
+      templateDescription: 'VPN Template'
+      vpnID:
+        globalValue: 0
+      name:
+        globalValue: 'Transport VPN 0'
+      ecmpLayer4:
+        globalValue: 'true'
+      staticRoutes:
+        - prefix:
+            variableName: 'static_route_vpn0'
+          nextHops:
+            - address:
+                variableName: 'next_hop_static_mpls'
+            - address:
+                variableName: 'next_hop_static_internet'
+          optional: true
+      deviceType:
+        - vEdge
+      state: 'present'
+    - templateName: 'CLUS_VPN1'
+      templateDescription: 'VPN Template'
+      vpnID:
+        globalValue: 1
+      name:
+        globalValue: 'Service VPN 1'
+      deviceType:
+        - vEdge
+      state: 'present'
+    - templateName: 'CLUS_VPN512'
+      templateDescription: 'VPN Template'
+      vpnID:
+        globalValue: 512
+      name:
+        globalValue: 'Transport VPN 512'
+      ecmpLayer4:
+        globalValue: 'true'
+      staticRoutes:
+        - prefix:
+            variableName: 'static_route_vpn512'
+          nextHops:
+            - address:
+                variableName: 'next_hop_static_mgt'
+          optional: true
+      deviceType:
+        - vEdge
+      state: 'present'

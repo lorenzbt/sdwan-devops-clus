@@ -1,0 +1,21 @@
+---
+DeviceTemplate:
+  - templateName: 'CLUS_temp'
+    templateDescription: 'CLUS device template'
+    deviceType: 'vedge-cloud'
+    aaa: 'Factory_Default_AAA_Template'
+    bfd-vedge: 'CLUS_BFD'
+    banner: 'CLUS_Banner'
+    logging: 'CLUS_Logging'
+    omp-vedge: 'Factory_Default_vEdge_OMP_Template'
+    security-vedge: 'Factory_Default_vEdge_Security_Template'
+    system-vedge: 'CLUS_System'
+    vpn-vedge:
+      - CLUS_VPN0:
+        - 'CLUS_VPN0_MPLS'
+        - 'CLUS_VPN0_INTERNET'
+      - CLUS_VPN1:
+        - 'CLUS_Loopback0'
+      - CLUS_VPN512:
+        - 'CLUS_VPN512_MGT'
+    state: 'present'

@@ -1,0 +1,12 @@
+---
+FeatureTemplates:
+  feature-banner:
+    - templateName: 'CLUS_Banner'
+      templateDescription: 'Banner Template'
+      login:
+        globalValue: 'I am having fun at CiscoLive 2022'
+      motd:
+        globalValue: 'I am having fun at CiscoLive 2022'
+      deviceType:
+        - vEdge
+      state: 'present'
